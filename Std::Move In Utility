@@ -1,0 +1,42 @@
+
+#include <iostream>
+#include <string>
+#include <utility>
+using namespace std;
+
+class Student {
+private:
+    string name;
+
+public:
+    Student(string n) : name(n) {
+        cout << "Constructor called." << endl;
+    }
+
+    // Move constructor
+    Student(Student&& s) noexcept
+        : name(move(s.name)) {
+        cout << "Move constructor called." << endl;
+    }
+
+    void display() const {
+        cout << "Name: " << name << endl;
+    }
+};
+
+int main() {
+    cout << "Creating first object:" << endl;
+    Student s1("Jayesh");
+    s1.display();
+
+    cout << "\nMoving data to second object:" << endl;
+    Student s2(move(s1));
+
+    cout << "\nSecond object after move:" << endl;
+    s2.display();
+
+    cout << "\nFirst object after move:" << endl;
+    s1.display();
+
+    return 0;
+}
